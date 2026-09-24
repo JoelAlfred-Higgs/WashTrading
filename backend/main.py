@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 
 from alchemy import fetch_alchemy_nft_transfers
 from opensea import fetch_opensea_market_data
+from etherscan import generate_etherscan_verification_links
 from detection import analyze_wash_trading
+from gemini import generate_gemini_explanation
 
 load_dotenv()
 
@@ -75,12 +77,24 @@ async def analyze(req: AnalyzeRequest):
     # 2. Retrieve OpenSea market data
     opensea_market_data = await fetch_opensea_market_data(address, token)
 
-    # 3. Run deterministic Wash Trading Detection Engine with market context
+    # 3. Generate Etherscan verification links
+    etherscan_links = generate_etherscan_verification_links(address, token, normalized_transfers)
+
+    # 4. Run deterministic Wash Trading Detection Engine with market context
     detection_result = analyze_wash_trading(normalized_transfers, opensea_market_data)
+
+    # 5. Generate Gemini AI plain-English explanation (never alters score/signals)
+    ai_explanation = await generate_gemini_explanation({
+        "risk_score": detection_result["risk_score"],
+        "risk_level": detection_result["risk_level"],
+        "signals": detection_result["signals"],
+        "total_transfers_found": alchemy_result["total_transfers_found"],
+        "market_data": opensea_market_data
+    })
 
     return {
         "status": "success",
-        "data_source": "Alchemy Ethereum Mainnet & OpenSea",
+        "data_source": "Alchemy, OpenSea, Etherscan & Gemini AI",
         "contract_address": alchemy_result["contract_address"],
         "token_id": alchemy_result["token_id"],
         "total_transfers_found": alchemy_result["total_transfers_found"],
@@ -88,7 +102,9 @@ async def analyze(req: AnalyzeRequest):
         "risk_level": detection_result["risk_level"],
         "signals": detection_result["signals"],
         "disclaimer": detection_result["disclaimer"],
+        "ai_explanation": ai_explanation,
         "market_data": opensea_market_data,
+        "etherscan_links": etherscan_links,
         "normalized_transfers": normalized_transfers,
         "note": alchemy_result.get("note", "")
     }

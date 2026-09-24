@@ -77,7 +77,7 @@ export default function App() {
       <header className="header">
         <div className="header-badge">
           <span className="pulse-dot"></span>
-          Wallet Graph Forensics Enabled
+          Gemini AI Explanation Active
         </div>
         <h1 className="header-title">WASHGUARD</h1>
         <p className="header-subtitle">NFT Wash-Trading Risk Analyzer</p>
@@ -158,7 +158,7 @@ export default function App() {
             {loading ? (
               <>
                 <div className="spinner"></div>
-                <span>Analyzing Network Topology & Wash Signals...</span>
+                <span>Generating Wash Risk Report & AI Explanation...</span>
               </>
             ) : (
               <span>ANALYZE NFT</span>
@@ -210,6 +210,105 @@ export default function App() {
                 {results.total_transfers_found ?? 0}
               </div>
             </div>
+          </div>
+
+          {/* Gemini AI Explanation Layer (Visually Distinct) */}
+          <div 
+            className="placeholder-section" 
+            style={{ 
+              marginBottom: '1.5rem', 
+              borderColor: 'rgba(192, 132, 252, 0.5)', 
+              background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.08) 0%, rgba(6, 182, 212, 0.05) 100%)',
+              boxShadow: '0 10px 25px -10px rgba(192, 132, 252, 0.2)'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem' }}>
+              <div className="placeholder-title" style={{ color: '#c084fc', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
+                <span>✨</span> Gemini AI Explanation
+              </div>
+              <span style={{ fontSize: '0.75rem', color: '#c084fc', background: 'rgba(192, 132, 252, 0.15)', padding: '0.2rem 0.6rem', borderRadius: '9999px', fontWeight: '600' }}>
+                Non-Authoritative Interpretation
+              </span>
+            </div>
+
+            {results.ai_explanation ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {/* Summary */}
+                <div style={{ background: 'rgba(15, 23, 42, 0.6)', borderRadius: '8px', padding: '0.85rem 1rem', borderLeft: '3px solid #c084fc' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#c084fc', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                    Executive Summary
+                  </div>
+                  <div style={{ fontSize: '0.9rem', color: '#f8fafc', lineHeight: '1.5' }}>
+                    {results.ai_explanation.summary}
+                  </div>
+                </div>
+
+                {/* Key Findings */}
+                {results.ai_explanation.key_findings?.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                      Key Findings
+                    </div>
+                    <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#e2e8f0', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                      {results.ai_explanation.key_findings.map((item, idx) => (
+                        <li key={idx} style={{ marginBottom: '0.3rem' }}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Limitations */}
+                {results.ai_explanation.limitations?.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                      Limitations & Disclaimers
+                    </div>
+                    <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#94a3b8', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                      {results.ai_explanation.limitations.map((item, idx) => (
+                        <li key={idx} style={{ marginBottom: '0.3rem' }}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="placeholder-text" style={{ color: '#94a3b8' }}>
+                Gemini AI explanation is currently unavailable. (Deterministic risk score and raw signals remain fully operational above).
+              </div>
+            )}
+          </div>
+
+          {/* Etherscan Verification Links Section */}
+          <div className="placeholder-section" style={{ marginBottom: '1.25rem', borderColor: 'rgba(16, 185, 129, 0.4)', background: 'rgba(16, 185, 129, 0.03)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <div className="placeholder-title" style={{ color: '#10b981', margin: 0 }}>Etherscan Verification Links</div>
+              <span style={{ fontSize: '0.75rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.15)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontWeight: '600' }}>
+                On-Chain Verification Active
+              </span>
+            </div>
+
+            {results.etherscan_links && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+                <a
+                  href={results.etherscan_links.contract_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="preset-btn"
+                  style={{ color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.4)', background: 'rgba(16, 185, 129, 0.1)', padding: '0.4rem 0.75rem' }}
+                >
+                  🔗 View Contract on Etherscan
+                </a>
+                <a
+                  href={results.etherscan_links.token_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="preset-btn"
+                  style={{ color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.4)', background: 'rgba(16, 185, 129, 0.1)', padding: '0.4rem 0.75rem' }}
+                >
+                  🔗 View Token #{results.token_id} on Etherscan
+                </a>
+              </div>
+            )}
           </div>
 
           {/* OpenSea Market Data Section */}
@@ -339,6 +438,7 @@ export default function App() {
                       <th style={{ padding: '0.5rem' }}>To Address</th>
                       <th style={{ padding: '0.5rem' }}>Timestamp</th>
                       <th style={{ padding: '0.5rem' }}>Value</th>
+                      <th style={{ padding: '0.5rem' }}>Verification</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -358,6 +458,18 @@ export default function App() {
                         </td>
                         <td style={{ padding: '0.5rem', color: '#10b981', fontWeight: 'bold' }}>
                           {tx.value !== null && tx.value !== undefined ? `${tx.value} ETH` : 'Transfer (0 ETH)'}
+                        </td>
+                        <td style={{ padding: '0.5rem' }}>
+                          {tx.tx_hash && (
+                            <a
+                              href={`https://etherscan.io/tx/${tx.tx_hash}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ color: '#10b981', textDecoration: 'none', fontSize: '0.75rem' }}
+                            >
+                              Verify ↗
+                            </a>
+                          )}
                         </td>
                       </tr>
                     ))}
