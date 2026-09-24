@@ -1,14 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WalletGraph from './components/WalletGraph';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
+const LOADING_STEPS = [
+  'Collecting blockchain activity (Alchemy)...',
+  'Analyzing wallet relationships & cycles...',
+  'Checking market context & floor price (OpenSea)...',
+  'Generating risk explanation (Gemini AI)...',
+];
 
 export default function App() {
   const [contractAddress, setContractAddress] = useState('');
   const [tokenId, setTokenId] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loadingStepIdx, setLoadingStepIdx] = useState(0);
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
+
+  useEffect(() => {
+    let interval;
+    if (loading) {
+      setLoadingStepIdx(0);
+      interval = setInterval(() => {
+        setLoadingStepIdx((prev) => (prev + 1) % LOADING_STEPS.length);
+      }, 700);
+    } else {
+      setLoadingStepIdx(0);
+    }
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const handlePreset = (address, id) => {
     setContractAddress(address);
@@ -77,7 +98,7 @@ export default function App() {
       <header className="header">
         <div className="header-badge">
           <span className="pulse-dot"></span>
-          Gemini AI Explanation Active
+          WashGuard Hackathon MVP
         </div>
         <h1 className="header-title">WASHGUARD</h1>
         <p className="header-subtitle">NFT Wash-Trading Risk Analyzer</p>
@@ -158,7 +179,7 @@ export default function App() {
             {loading ? (
               <>
                 <div className="spinner"></div>
-                <span>Generating Wash Risk Report & AI Explanation...</span>
+                <span>{LOADING_STEPS[loadingStepIdx]}</span>
               </>
             ) : (
               <span>ANALYZE NFT</span>
