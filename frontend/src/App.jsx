@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import WalletGraph from './components/WalletGraph';
+import marketOrbit from './assets/market-orbit.svg';
+import networkGrid from './assets/network-grid.svg';
+import ethereumMark from './assets/ethereum-mark.svg';
+import signalPulse from './assets/signal-pulse.svg';
+import spikeGraph from './assets/spike-graph.svg';
+import bitcoinOrbit from './assets/bitcoin-orbit.svg';
+import marketRadar from './assets/market-radar.svg';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
@@ -82,7 +89,7 @@ export default function App() {
     } catch (err) {
       if (err.name === 'TypeError' && err.message.includes('fetch')) {
         setError(
-          `Unable to connect to WashGuard backend at ${API_BASE_URL}. Please ensure the backend server is running.`
+          `Unable to connect to Onyx backend at ${API_BASE_URL}. Please ensure the backend server is running.`
         );
       } else {
         setError(err.message || 'An unexpected error occurred during analysis.');
@@ -94,106 +101,161 @@ export default function App() {
 
   return (
     <div className="app-container">
+      <div className="corner-visuals" aria-hidden="true">
+        <img className="corner-visual corner-visual-radar" src={marketRadar} alt="" />
+        <img className="corner-visual corner-visual-market" src={marketOrbit} alt="" />
+        <img className="corner-visual corner-visual-network" src={networkGrid} alt="" />
+        <div className="market-decor market-decor-chart">
+          <span className="decor-label">LIVE MARKET SIGNAL</span>
+          <img src={spikeGraph} alt="" />
+          <span className="decor-value">+24.8%</span>
+        </div>
+        <div className="market-decor market-decor-coin">
+          <img src={bitcoinOrbit} alt="" />
+          <span>MARKET PULSE</span>
+        </div>
+      </div>
+
       {/* Header */}
       <header className="header">
-        <div className="header-badge">
-          <span className="pulse-dot"></span>
-          WashGuard Hackathon MVP
-        </div>
-        <h1 className="header-title">WASHGUARD</h1>
+        <div className="header-badge header-badge-spacer" aria-hidden="true"></div>
+        <h1 className="header-title">ONYX</h1>
         <p className="header-subtitle">NFT Wash-Trading Risk Analyzer</p>
       </header>
 
+      <section className="intel-strip" aria-label="Onyx intelligence overview">
+        <div className="intel-copy">
+          <span className="intel-kicker">ON-CHAIN MARKET INTELLIGENCE</span>
+          <h2>Read the signal behind the sale.</h2>
+          <p>Connect wallet behavior, token movement, and market pressure in one focused inspection.</p>
+        </div>
+        <div className="intel-metrics">
+          <div className="intel-metric">
+            <img src={ethereumMark} alt="" />
+            <span><strong>Ethereum</strong><small>Network layer</small></span>
+          </div>
+          <div className="intel-metric">
+            <img src={signalPulse} alt="" />
+            <span><strong>7 signals</strong><small>Risk indicators</small></span>
+          </div>
+          <div className="intel-metric intel-metric-score">
+            <span className="metric-number">0-100</span>
+            <span><strong>Risk score</strong><small>Explainable output</small></span>
+          </div>
+        </div>
+      </section>
+
+      <div className="quote-lockup">
+        <span className="quote-mark">“</span>
+        <p>Every sale leaves a signal. <em>Find the pattern before it finds you.</em>”</p>
+      </div>
+
       {/* Input Card */}
       <div className="card">
-        <div className="card-title">
-          <span>NFT Inspection Parameters</span>
-        </div>
-
-        <form onSubmit={handleAnalyze}>
-          <div className="form-grid">
-            <div className="form-group">
-              <label className="form-label" htmlFor="contract-address">
-                NFT Contract Address
-              </label>
-              <div className="input-wrapper">
-                <input
-                  id="contract-address"
-                  type="text"
-                  className="form-input"
-                  placeholder="e.g. 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
-                  value={contractAddress}
-                  onChange={(e) => setContractAddress(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
+        <div className="inspection-layout">
+          <div className="inspection-form">
+            <div className="card-title">
+              <span>NFT Inspection Parameters</span>
             </div>
 
-            <div className="form-group">
-              <label className="form-label" htmlFor="token-id">
-                Token ID
-              </label>
-              <div className="input-wrapper">
-                <input
-                  id="token-id"
-                  type="text"
-                  className="form-input"
-                  placeholder="e.g. 1"
-                  value={tokenId}
-                  onChange={(e) => setTokenId(e.target.value)}
-                  disabled={loading}
-                />
+            <form onSubmit={handleAnalyze}>
+              <div className="form-grid">
+                <div className="form-group">
+                  <label className="form-label" htmlFor="contract-address">
+                    NFT Contract Address
+                  </label>
+                  <div className="input-wrapper">
+                    <input
+                      id="contract-address"
+                      type="text"
+                      className="form-input"
+                      placeholder="e.g. 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
+                      value={contractAddress}
+                      onChange={(e) => setContractAddress(e.target.value)}
+                      disabled={loading}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="token-id">
+                    Token ID
+                  </label>
+                  <div className="input-wrapper">
+                    <input
+                      id="token-id"
+                      type="text"
+                      className="form-input"
+                      placeholder="e.g. 1"
+                      value={tokenId}
+                      onChange={(e) => setTokenId(e.target.value)}
+                      disabled={loading}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          {/* Quick Presets */}
-          <div className="preset-section">
-            <span className="preset-label">Quick Test Presets:</span>
-            <button
-              type="button"
-              className="preset-btn"
-              onClick={() =>
-                handlePreset('0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', '1')
-              }
-            >
-              BAYC #1 (High Wash Pattern)
-            </button>
-            <button
-              type="button"
-              className="preset-btn"
-              onClick={() =>
-                handlePreset('0xED5AF3B7828476C17F56A6376557565402756193', '8888')
-              }
-            >
-              AZUKI #8888
-            </button>
-          </div>
+              {/* Quick Fill Presets */}
+              <div className="preset-section">
+                <span className="preset-label">Quick Test Presets:</span>
+                <button
+                  type="button"
+                  className="preset-btn"
+                  onClick={() =>
+                    handlePreset('0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D', '1')
+                  }
+                >
+                  BAYC #1 (High Wash Pattern)
+                </button>
+                <button
+                  type="button"
+                  className="preset-btn"
+                  onClick={() =>
+                    handlePreset('0xED5AF3B7828476C17F56A6376557565402756193', '8888')
+                  }
+                >
+                  AZUKI #8888
+                </button>
+              </div>
 
-          {/* Analyze Button */}
-          <button
-            type="submit"
-            className="btn-analyze"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <div className="spinner"></div>
-                <span>{LOADING_STEPS[loadingStepIdx]}</span>
-              </>
-            ) : (
-              <span>ANALYZE NFT</span>
+              {/* Analyze Button */}
+              <button
+                type="submit"
+                className="btn-analyze"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <div className="spinner"></div>
+                    <span>{LOADING_STEPS[loadingStepIdx]}</span>
+                  </>
+                ) : (
+                  <span>ANALYZE NFT</span>
+                )}
+              </button>
+            </form>
+
+            {/* User-friendly Error Display */}
+            {error && (
+              <div className="error-banner">
+                <span className="error-icon">⚠️</span>
+                <span>{error}</span>
+              </div>
             )}
-          </button>
-        </form>
-
-        {/* User-friendly Error Display */}
-        {error && (
-          <div className="error-banner">
-            <span className="error-icon">⚠️</span>
-            <span>{error}</span>
           </div>
-        )}
+          <aside className="inspection-signal" aria-label="Example transaction spike graph">
+            <div className="signal-panel-topline">
+              <span>MARKET SIGNAL</span>
+              <span className="signal-live"><i></i> LIVE</span>
+            </div>
+            <div className="signal-panel-title">Transaction pressure</div>
+            <img src={spikeGraph} alt="Example transaction pressure spike graph" />
+            <div className="signal-panel-footer">
+              <span>WALLET ACTIVITY</span>
+              <strong>+24.8%</strong>
+            </div>
+          </aside>
+        </div>
       </div>
 
       {/* Results Area */}
@@ -506,7 +568,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="footer">
-        WashGuard Hackathon MVP — NFT Wash-Trading Risk Analyzer
+        Onyx — NFT Wash-Trading Risk Analyzer
       </footer>
     </div>
   );
