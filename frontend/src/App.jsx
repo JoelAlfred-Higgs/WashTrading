@@ -180,7 +180,7 @@ export default function App() {
         <div className="card results-area">
           <div className="card-title">
             <span>Wash-Trading Analysis Results</span>
-            <span className="badge-dev" style={{ background: 'rgba(6, 182, 212, 0.15)', color: '#06b6d4', borderColor: 'rgba(6, 182, 212, 0.4)' }}>
+            <span className="badge-dev" style={{ background: 'rgba(26, 138, 107, 0.1)', color: '#1a8a6b', borderColor: 'rgba(26, 138, 107, 0.35)' }}>
               Deterministic Engine v1.0
             </span>
           </div>
@@ -206,22 +206,22 @@ export default function App() {
 
             <div className="stat-box">
               <div className="stat-label">Transfers Analyzed</div>
-              <div className="stat-value" style={{ color: '#06b6d4' }}>
+              <div className="stat-value" style={{ color: '#1a8a6b' }}>
                 {results.total_transfers_found ?? 0}
               </div>
             </div>
           </div>
 
           {/* OpenSea Market Data Section */}
-          <div className="placeholder-section" style={{ marginBottom: '1.25rem', borderColor: 'rgba(59, 130, 246, 0.4)', background: 'rgba(59, 130, 246, 0.04)' }}>
+          <div className="placeholder-section" style={{ marginBottom: '1.25rem', borderColor: 'rgba(26, 138, 107, 0.35)', background: 'rgba(26, 138, 107, 0.04)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-              <div className="placeholder-title" style={{ color: '#3b82f6', margin: 0 }}>OpenSea Market Context</div>
+              <div className="placeholder-title" style={{ color: '#1a8a6b', margin: 0 }}>OpenSea Market Context</div>
               {results.market_data?.is_available ? (
-                <span style={{ fontSize: '0.75rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.15)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontWeight: '600' }}>
+                <span style={{ fontSize: '0.75rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontWeight: '600' }}>
                   Market Context Active
                 </span>
               ) : (
-                <span style={{ fontSize: '0.75rem', color: '#94a3b8', background: 'rgba(148, 163, 184, 0.15)', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                <span style={{ fontSize: '0.75rem', color: '#8a9baa', background: 'rgba(138, 155, 170, 0.1)', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
                   Market data unavailable
                 </span>
               )}
@@ -230,15 +230,15 @@ export default function App() {
             {results.market_data?.is_available ? (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', marginTop: '0.5rem' }}>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Collection</div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#f8fafc' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#5a6b7a', textTransform: 'uppercase' }}>Collection</div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#1a2332' }}>
                     {results.market_data.collection?.name || 'Unknown'}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Floor Price</div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#3b82f6' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#5a6b7a', textTransform: 'uppercase' }}>Floor Price</div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#1a8a6b' }}>
                     {results.market_data.floor_price !== null && results.market_data.floor_price !== undefined
                       ? `${results.market_data.floor_price} ${results.market_data.currency || 'ETH'}`
                       : 'N/A'}
@@ -246,25 +246,25 @@ export default function App() {
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Recorded Sales</div>
+                  <div style={{ fontSize: '0.75rem', color: '#5a6b7a', textTransform: 'uppercase' }}>Recorded Sales</div>
                   <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#10b981' }}>
                     {results.market_data.sales?.length ?? 0} Sales
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="placeholder-text" style={{ color: '#94a3b8' }}>
+              <div className="placeholder-text" style={{ color: '#5a6b7a' }}>
                 OpenSea market context is currently unavailable or unconfigured. (Analysis continues using Alchemy on-chain transfer data).
               </div>
             )}
           </div>
 
           {/* Interactive Wallet Network Graph */}
-          <div className="placeholder-section" style={{ marginBottom: '1.25rem', borderColor: 'rgba(6, 182, 212, 0.4)', background: 'rgba(6, 182, 212, 0.03)' }}>
-            <div className="placeholder-title" style={{ color: '#06b6d4', marginBottom: '0.25rem' }}>
+          <div className="placeholder-section" style={{ marginBottom: '1.25rem', borderColor: 'rgba(26, 138, 107, 0.35)', background: 'rgba(26, 138, 107, 0.03)' }}>
+            <div className="placeholder-title" style={{ color: '#1a8a6b', marginBottom: '0.25rem' }}>
               Interactive Wallet Transaction Graph
             </div>
-            <div className="placeholder-text" style={{ color: '#94a3b8', marginBottom: '0.75rem', fontSize: '0.8rem' }}>
+            <div className="placeholder-text" style={{ color: '#5a6b7a', marginBottom: '0.75rem', fontSize: '0.8rem' }}>
               Visualizing wallet interactions, directed transfer paths, circular trading loops, and transaction values.
             </div>
 
@@ -277,8 +277,8 @@ export default function App() {
           {/* Disclaimer Banner */}
           {results.disclaimer && (
             <div className="placeholder-section" style={{ marginBottom: '1.25rem', borderColor: 'rgba(245, 158, 11, 0.3)', background: 'rgba(245, 158, 11, 0.05)' }}>
-              <div className="placeholder-title" style={{ color: '#fbbf24' }}>Legal & Heuristic Notice</div>
-              <div className="placeholder-text" style={{ color: '#e2e8f0' }}>{results.disclaimer}</div>
+              <div className="placeholder-title" style={{ color: '#d97706' }}>Legal & Heuristic Notice</div>
+              <div className="placeholder-text" style={{ color: '#1a2332' }}>{results.disclaimer}</div>
             </div>
           )}
 
@@ -293,22 +293,22 @@ export default function App() {
                 <div 
                   key={idx} 
                   style={{ 
-                    background: sig.detected ? 'rgba(239, 68, 68, 0.08)' : 'rgba(15, 23, 42, 0.5)',
-                    border: `1px solid ${sig.detected ? 'rgba(239, 68, 68, 0.4)' : 'rgba(51, 65, 85, 0.4)'}`,
+                    background: sig.detected ? 'rgba(239, 68, 68, 0.06)' : 'rgba(244, 248, 246, 0.7)',
+                    border: `1px solid ${sig.detected ? 'rgba(239, 68, 68, 0.3)' : 'rgba(200, 215, 210, 0.5)'}`,
                     borderRadius: '10px',
                     padding: '0.9rem 1.1rem'
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                    <span style={{ fontWeight: '700', color: sig.detected ? '#fca5a5' : '#94a3b8', fontSize: '0.95rem' }}>
+                    <span style={{ fontWeight: '700', color: sig.detected ? '#dc2626' : '#5a6b7a', fontSize: '0.95rem' }}>
                       {sig.detected ? '🚨' : '⚪'} {sig.name}
                     </span>
                     <span style={{ 
                       fontSize: '0.8rem', 
                       fontFamily: 'var(--font-mono)',
                       fontWeight: '700',
-                      color: sig.detected ? '#ef4444' : '#64748b',
-                      background: sig.detected ? 'rgba(239, 68, 68, 0.2)' : 'rgba(30, 41, 59, 0.5)',
+                      color: sig.detected ? '#ef4444' : '#8a9baa',
+                      background: sig.detected ? 'rgba(239, 68, 68, 0.1)' : 'rgba(200, 215, 210, 0.4)',
                       padding: '0.2rem 0.6rem',
                       borderRadius: '6px'
                     }}>
@@ -316,7 +316,7 @@ export default function App() {
                     </span>
                   </div>
 
-                  <ul style={{ margin: 0, paddingLeft: '1.2rem', color: sig.detected ? '#f8fafc' : '#64748b', fontSize: '0.85rem' }}>
+                  <ul style={{ margin: 0, paddingLeft: '1.2rem', color: sig.detected ? '#1a2332' : '#8a9baa', fontSize: '0.85rem' }}>
                     {sig.evidence?.map((ev, evIdx) => (
                       <li key={evIdx} style={{ marginBottom: '0.2rem' }}>{ev}</li>
                     ))}
@@ -343,17 +343,17 @@ export default function App() {
                   </thead>
                   <tbody>
                     {results.normalized_transfers.map((tx, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid rgba(51, 65, 85, 0.3)' }}>
-                        <td style={{ padding: '0.5rem', color: '#06b6d4' }}>
+                      <tr key={idx} style={{ borderBottom: '1px solid rgba(200, 215, 210, 0.4)' }}>
+                        <td style={{ padding: '0.5rem', color: '#1a8a6b' }}>
                           {tx.tx_hash ? `${tx.tx_hash.slice(0, 10)}...${tx.tx_hash.slice(-6)}` : 'N/A'}
                         </td>
-                        <td style={{ padding: '0.5rem', color: '#94a3b8' }}>
+                        <td style={{ padding: '0.5rem', color: '#5a6b7a' }}>
                           {tx.from ? `${tx.from.slice(0, 6)}...${tx.from.slice(-4)}` : 'N/A'}
                         </td>
-                        <td style={{ padding: '0.5rem', color: '#94a3b8' }}>
+                        <td style={{ padding: '0.5rem', color: '#5a6b7a' }}>
                           {tx.to ? `${tx.to.slice(0, 6)}...${tx.to.slice(-4)}` : 'N/A'}
                         </td>
-                        <td style={{ padding: '0.5rem', color: '#e2e8f0' }}>
+                        <td style={{ padding: '0.5rem', color: '#1a2332' }}>
                           {tx.timestamp ? new Date(tx.timestamp).toLocaleString() : 'N/A'}
                         </td>
                         <td style={{ padding: '0.5rem', color: '#10b981', fontWeight: 'bold' }}>

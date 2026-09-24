@@ -115,7 +115,7 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
       >
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#06b6d4', display: 'inline-block' }}></span>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#1a8a6b', display: 'inline-block' }}></span>
             Standard Wallet
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
@@ -133,7 +133,7 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
       {/* Interactive SVG Network Graph */}
       <div
         style={{
-          background: 'rgba(7, 11, 20, 0.95)',
+          background: 'rgba(244, 248, 246, 0.95)',
           border: '1px solid var(--border-color)',
           borderRadius: '12px',
           padding: '1rem',
@@ -156,7 +156,7 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
               markerHeight="6"
               orient="auto-start-reverse"
             >
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4" />
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a8a6b" />
             </marker>
 
             {/* Red Cycle Arrow Marker */}
@@ -201,7 +201,7 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
             const dy = targetNode.y - sourceNode.y;
             const dr = Math.sqrt(dx * dx + dy * dy) * 1.2;
 
-            const strokeColor = isHovered || isSelected ? '#f59e0b' : isCircularEdge ? '#ef4444' : '#06b6d4';
+            const strokeColor = isHovered || isSelected ? '#d97706' : isCircularEdge ? '#ef4444' : '#1a8a6b';
             const markerId = isHovered || isSelected ? 'url(#arrow-amber)' : isCircularEdge ? 'url(#arrow-red)' : 'url(#arrow-cyan)';
             const strokeWidth = isHovered || isSelected ? 3 : isCircularEdge ? 2.5 : 1.5;
 
@@ -245,8 +245,8 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
           {graphData.nodes.map((node) => {
             const isSelected = selectedNode === node.id;
             const isHovered = hoveredNode === node.id;
-            const fillColor = node.isMint ? '#475569' : node.isCircular ? '#ef4444' : '#06b6d4';
-            const strokeColor = isSelected ? '#f59e0b' : isHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.4)';
+            const fillColor = node.isMint ? '#8a9baa' : node.isCircular ? '#ef4444' : '#1a8a6b';
+            const strokeColor = isSelected ? '#d97706' : isHovered ? '#1a2332' : 'rgba(26, 35, 50, 0.3)';
             const radius = isSelected || isHovered ? 16 : 13;
 
             return (
@@ -263,7 +263,7 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
                   <circle
                     r={radius + 6}
                     fill="none"
-                    stroke={node.isCircular ? 'rgba(239, 68, 68, 0.4)' : 'rgba(245, 158, 11, 0.4)'}
+                    stroke={node.isCircular ? 'rgba(239, 68, 68, 0.35)' : 'rgba(217, 119, 6, 0.35)'}
                     strokeWidth="2"
                   >
                     <animate attributeName="r" values={`${radius + 4};${radius + 9};${radius + 4}`} dur="2s" repeatCount="indefinite" />
@@ -282,7 +282,7 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
                 {/* Node Text Label */}
                 <text
                   y={radius + 14}
-                  fill={isSelected ? '#f59e0b' : isHovered ? '#ffffff' : '#94a3b8'}
+                  fill={isSelected ? '#d97706' : isHovered ? '#1a2332' : '#5a6b7a'}
                   fontSize="11"
                   fontFamily="var(--font-mono)"
                   fontWeight={isSelected || isHovered ? '700' : '500'}
@@ -302,15 +302,15 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
               position: 'absolute',
               bottom: '12px',
               left: '12px',
-              background: 'rgba(15, 23, 42, 0.95)',
-              border: '1px solid #06b6d4',
+              background: 'rgba(255, 255, 255, 0.97)',
+              border: '1px solid #1a8a6b',
               borderRadius: '8px',
               padding: '0.6rem 0.85rem',
               fontSize: '0.75rem',
               fontFamily: 'var(--font-mono)',
-              color: '#f8fafc',
+              color: '#1a2332',
               zIndex: 10,
-              boxShadow: '0 10px 20px rgba(0,0,0,0.5)',
+              boxShadow: '0 6px 16px rgba(26, 35, 50, 0.12)',
             }}
           >
             {(() => {
@@ -318,9 +318,9 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
               if (!edge) return null;
               return (
                 <div>
-                  <div style={{ color: '#06b6d4', fontWeight: '700', marginBottom: '0.2rem' }}>Directed Transaction Edge</div>
-                  <div>Tx Hash: <span style={{ color: '#e2e8f0' }}>{edge.hash.slice(0, 14)}...{edge.hash.slice(-6)}</span></div>
-                  <div>From: <span style={{ color: '#94a3b8' }}>{edge.source.slice(0, 8)}...</span> → To: <span style={{ color: '#94a3b8' }}>{edge.target.slice(0, 8)}...</span></div>
+                  <div style={{ color: '#1a8a6b', fontWeight: '700', marginBottom: '0.2rem' }}>Directed Transaction Edge</div>
+                  <div>Tx Hash: <span style={{ color: '#1a2332' }}>{edge.hash.slice(0, 14)}...{edge.hash.slice(-6)}</span></div>
+                  <div>From: <span style={{ color: '#5a6b7a' }}>{edge.source.slice(0, 8)}...</span> → To: <span style={{ color: '#5a6b7a' }}>{edge.target.slice(0, 8)}...</span></div>
                   <div>Value: <span style={{ color: '#10b981', fontWeight: '700' }}>{edge.value !== null && edge.value !== undefined ? `${edge.value} ETH` : 'Transfer (0 ETH)'}</span></div>
                 </div>
               );
@@ -334,25 +334,25 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
         <div
           style={{
             marginTop: '1rem',
-            background: 'rgba(15, 23, 42, 0.7)',
-            border: '1px solid #f59e0b',
+            background: 'rgba(255, 255, 255, 0.9)',
+            border: '1px solid #d97706',
             borderRadius: '12px',
             padding: '1.25rem',
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ color: '#f59e0b', fontSize: '1rem' }}>🔍</span>
-              <span style={{ fontWeight: '700', fontSize: '0.95rem', color: '#f8fafc' }}>
-                Inspected Wallet: <span style={{ fontFamily: 'var(--font-mono)', color: '#06b6d4' }}>{selectedNodeData.id}</span>
+              <span style={{ color: '#d97706', fontSize: '1rem' }}>🔍</span>
+              <span style={{ fontWeight: '700', fontSize: '0.95rem', color: '#1a2332' }}>
+                Inspected Wallet: <span style={{ fontFamily: 'var(--font-mono)', color: '#1a8a6b' }}>{selectedNodeData.id}</span>
               </span>
             </div>
             <button
               onClick={() => setSelectedNode(null)}
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
+                background: 'rgba(26, 35, 50, 0.06)',
                 border: 'none',
-                color: '#94a3b8',
+                color: '#5a6b7a',
                 borderRadius: '4px',
                 padding: '0.2rem 0.5rem',
                 cursor: 'pointer',
@@ -363,8 +363,8 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
             </button>
           </div>
 
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
-            Participated in <strong style={{ color: '#f8fafc' }}>{selectedNodeTxs.length}</strong> recorded transfers for this NFT.
+          <div style={{ fontSize: '0.85rem', color: '#5a6b7a', marginBottom: '0.75rem' }}>
+            Participated in <strong style={{ color: '#1a2332' }}>{selectedNodeTxs.length}</strong> recorded transfers for this NFT.
             {selectedNodeData.isCircular && (
               <span style={{ color: '#ef4444', marginLeft: '0.5rem', fontWeight: '600' }}>
                 ⚠️ Flagged in Circular Trading Pattern
@@ -389,14 +389,14 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
                   const counterparty = isSender ? tx.target : tx.source;
 
                   return (
-                    <tr key={idx} style={{ borderBottom: '1px solid rgba(51, 65, 85, 0.3)' }}>
+                    <tr key={idx} style={{ borderBottom: '1px solid rgba(200, 215, 210, 0.4)' }}>
                       <td style={{ padding: '0.4rem', color: isSender ? '#f97316' : '#10b981', fontWeight: '600' }}>
                         {isSender ? 'SENDER (OUT)' : 'RECEIVER (IN)'}
                       </td>
-                      <td style={{ padding: '0.4rem', color: '#06b6d4' }}>
+                      <td style={{ padding: '0.4rem', color: '#1a8a6b' }}>
                         {tx.hash ? `${tx.hash.slice(0, 10)}...` : 'N/A'}
                       </td>
-                      <td style={{ padding: '0.4rem', color: '#94a3b8' }}>
+                      <td style={{ padding: '0.4rem', color: '#5a6b7a' }}>
                         {counterparty.slice(0, 8)}...{counterparty.slice(-4)}
                       </td>
                       <td style={{ padding: '0.4rem', color: '#10b981', fontWeight: 'bold' }}>
