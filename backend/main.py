@@ -83,7 +83,7 @@ async def analyze(req: AnalyzeRequest):
     # 4. Run deterministic Wash Trading Detection Engine with market context
     detection_result = analyze_wash_trading(normalized_transfers, opensea_market_data)
 
-    # 5. Generate Gemini AI plain-English explanation (never alters score/signals)
+    # 5. Generate AI plain-English explanation (never alters score/signals)
     ai_explanation = await generate_gemini_explanation({
         "risk_score": detection_result["risk_score"],
         "risk_level": detection_result["risk_level"],
@@ -94,7 +94,7 @@ async def analyze(req: AnalyzeRequest):
 
     return {
         "status": "success",
-        "data_source": "Alchemy, OpenSea, Etherscan & Gemini AI",
+        "data_source": "Alchemy, OpenSea, Etherscan & AI",
         "contract_address": alchemy_result["contract_address"],
         "token_id": alchemy_result["token_id"],
         "total_transfers_found": alchemy_result["total_transfers_found"],

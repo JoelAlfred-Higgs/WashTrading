@@ -19,7 +19,7 @@ const LOADING_STEPS = [
   'Collecting blockchain activity (Alchemy)...',
   'Analyzing wallet relationships & cycles...',
   'Checking market context & floor price (OpenSea)...',
-  'Generating risk explanation (Gemini AI)...',
+  'Finalizing analysis...',
 ];
 
 export default function App() {
@@ -304,28 +304,18 @@ export default function App() {
             </div>
           </div>
 
-          {/* Gemini AI Explanation Layer (Visually Distinct) */}
-          <div 
-            className="placeholder-section" 
-            style={{ 
-              marginBottom: '1.5rem', 
-              borderColor: 'rgba(192, 132, 252, 0.5)', 
+          {/* AI Explanation Layer */}
+          <div
+            className="placeholder-section"
+            style={{
+              marginBottom: '1.5rem',
+              borderColor: 'rgba(192, 132, 252, 0.5)',
               background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.08) 0%, rgba(6, 182, 212, 0.05) 100%)',
               boxShadow: '0 10px 25px -10px rgba(192, 132, 252, 0.2)'
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem' }}>
-              <div className="placeholder-title" style={{ color: '#c084fc', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
-                <span>✨</span> Gemini AI Explanation
-              </div>
-              <span style={{ fontSize: '0.75rem', color: '#c084fc', background: 'rgba(192, 132, 252, 0.15)', padding: '0.2rem 0.6rem', borderRadius: '9999px', fontWeight: '600' }}>
-                Non-Authoritative Interpretation
-              </span>
-            </div>
-
             {results.ai_explanation ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {/* Summary */}
                 <div style={{ background: 'rgba(15, 23, 42, 0.6)', borderRadius: '8px', padding: '0.85rem 1rem', borderLeft: '3px solid #c084fc' }}>
                   <div style={{ fontSize: '0.75rem', color: '#c084fc', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
                     Executive Summary
@@ -335,13 +325,12 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Key Findings */}
                 {results.ai_explanation.key_findings?.length > 0 && (
                   <div>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#111827', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
                       Key Findings
                     </div>
-                    <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#e2e8f0', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                    <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#1f2937', fontSize: '0.85rem', lineHeight: '1.5' }}>
                       {results.ai_explanation.key_findings.map((item, idx) => (
                         <li key={idx} style={{ marginBottom: '0.3rem' }}>{item}</li>
                       ))}
@@ -349,13 +338,12 @@ export default function App() {
                   </div>
                 )}
 
-                {/* Limitations */}
                 {results.ai_explanation.limitations?.length > 0 && (
                   <div>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#111827', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
                       Limitations & Disclaimers
                     </div>
-                    <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#94a3b8', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                    <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#1f2937', fontSize: '0.85rem', lineHeight: '1.5' }}>
                       {results.ai_explanation.limitations.map((item, idx) => (
                         <li key={idx} style={{ marginBottom: '0.3rem' }}>{item}</li>
                       ))}
@@ -365,7 +353,7 @@ export default function App() {
               </div>
             ) : (
               <div className="placeholder-text" style={{ color: '#94a3b8' }}>
-                Gemini AI explanation is currently unavailable. (Deterministic risk score and raw signals remain fully operational above).
+                AI explanation is currently unavailable. (Deterministic risk score and raw signals remain fully operational above).
               </div>
             )}
           </div>
@@ -507,7 +495,7 @@ export default function App() {
                     </span>
                   </div>
 
-                  <ul style={{ margin: 0, paddingLeft: '1.2rem', color: sig.detected ? '#1a2332' : '#8a9baa', fontSize: '0.85rem' }}>
+                  <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#374151', fontSize: '0.85rem' }}>
                     {sig.evidence?.map((ev, evIdx) => (
                       <li key={evIdx} style={{ marginBottom: '0.2rem' }}>{ev}</li>
                     ))}
