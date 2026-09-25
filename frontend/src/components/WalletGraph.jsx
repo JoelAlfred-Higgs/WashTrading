@@ -205,10 +205,6 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
             const markerId = isHovered || isSelected ? 'url(#arrow-amber)' : isCircularEdge ? 'url(#arrow-red)' : 'url(#arrow-cyan)';
             const strokeWidth = isHovered || isSelected ? 3 : isCircularEdge ? 2.5 : 1.5;
 
-            // Midpoint label coordinates for ETH value
-            const midX = (sourceNode.x + targetNode.x) / 2;
-            const midY = (sourceNode.y + targetNode.y) / 2;
-
             return (
               <g key={edge.id} onMouseEnter={() => setHoveredEdge(edge.id)} onMouseLeave={() => setHoveredEdge(null)}>
                 {/* Directed Edge Line */}
@@ -221,22 +217,6 @@ export default function WalletGraph({ transfers = [], signals = [] }) {
                   markerEnd={markerId}
                   style={{ transition: 'all 0.2s ease', cursor: 'pointer' }}
                 />
-
-                {/* ETH Value Label on Edge */}
-                {edge.value !== undefined && edge.value !== null && (
-                  <text
-                    x={midX}
-                    y={midY - 6}
-                    fill={strokeColor}
-                    fontSize="10"
-                    fontFamily="var(--font-mono)"
-                    fontWeight="700"
-                    textAnchor="middle"
-                    style={{ pointerEvents: 'none' }}
-                  >
-                    {edge.value} ETH
-                  </text>
-                )}
               </g>
             );
           })}
