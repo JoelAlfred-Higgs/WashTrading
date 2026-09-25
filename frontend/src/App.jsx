@@ -19,6 +19,7 @@ const LOADING_STEPS = [
   'Collecting blockchain activity (Alchemy)...',
   'Analyzing wallet relationships & cycles...',
   'Checking market context & floor price (OpenSea)...',
+  'Generating AI risk explanation...',
   'Finalizing analysis...',
 ];
 
@@ -314,6 +315,15 @@ export default function App() {
               boxShadow: '0 10px 25px -10px rgba(192, 132, 252, 0.2)'
             }}
           >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem' }}>
+              <div className="placeholder-title" style={{ color: '#d8b4fe', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.1rem', fontWeight: '800' }}>
+                <span>✨</span> AI Risk Explanation
+              </div>
+              <span style={{ fontSize: '0.75rem', color: '#c084fc', background: 'rgba(192, 132, 252, 0.15)', padding: '0.2rem 0.6rem', borderRadius: '9999px', fontWeight: '600' }}>
+                Non-Authoritative Interpretation
+              </span>
+            </div>
+
             {results.ai_explanation ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ background: 'rgba(15, 23, 42, 0.6)', borderRadius: '8px', padding: '0.85rem 1rem', borderLeft: '3px solid #c084fc' }}>

@@ -66,7 +66,7 @@ async def generate_gemini_explanation(detection_data: Dict[str, Any]) -> Optiona
             return generate_fallback_ai_explanation(detection_data)
         return None
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+
 
     # Filter detected signals for prompt efficiency
     detected_signals = [
@@ -105,30 +105,58 @@ async def generate_gemini_explanation(detection_data: Dict[str, Any]) -> Optiona
         }
     }
 
+    # Models to try in order of preference (handles 503 overload by trying alternatives)
+    models = ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.8-flash"]
+    base_url = "https://generativelanguage.googleapis.com/v1beta/models"
+
     try:
-        async with httpx.AsyncClient(timeout=12.0) as client:
-            response = await client.post(url, json=request_body)
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            last_error = None
+            for model in models:
+                url = f"{base_url}/{model}:generateContent?key={api_key}"
+                try:
+                    response = await client.post(url, json=request_body)
 
-            if response.status_code != 200:
-                if os.getenv("ALLOW_MOCK_FALLBACK", "true").lower() == "true":
-                    return generate_fallback_ai_explanation(detection_data)
-                return None
+                    if response.status_code == 200:
+                        res_json = response.json()
+                        candidates = res_json.get("candidates", [])
+                        if not candidates:
+                            print(f"[WashGuard] {model}: returned no candidates.")
+                            continue
 
-            res_json = response.json()
-            candidates = res_json.get("candidates", [])
-            if not candidates:
+                        text_content = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                        if not text_content:
+                            print(f"[WashGuard] {model}: returned empty text.")
+                            continue
+
+                        parsed_explanation = json.loads(text_content)
+                        parsed_explanation["is_fallback_mode"] = False
+                        print(f"[WashGuard] Gemini explanation generated successfully via {model}.")
+                        return parsed_explanation
+
+                    elif response.status_code in [503, 429]:
+                        print(f"[WashGuard] {model}: HTTP {response.status_code} (overloaded/rate-limited), trying next model...")
+                        last_error = f"{model} returned HTTP {response.status_code}"
+                        continue
+                    else:
+                        print(f"[WashGuard] {model}: HTTP {response.status_code}: {response.text[:150]}")
+                        last_error = f"{model} returned HTTP {response.status_code}"
+                        continue
+
+                except Exception as model_err:
+                    print(f"[WashGuard] {model}: exception {type(model_err).__name__}: {model_err}")
+                    last_error = str(model_err)
+                    continue
+
+            # All models exhausted
+            print(f"[WashGuard] All Gemini models exhausted. Last error: {last_error}")
+            if os.getenv("ALLOW_MOCK_FALLBACK", "true").lower() == "true":
                 return generate_fallback_ai_explanation(detection_data)
+            return None
 
-            text_content = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
-            if not text_content:
-                return generate_fallback_ai_explanation(detection_data)
-
-            parsed_explanation = json.loads(text_content)
-            parsed_explanation["is_fallback_mode"] = False
-            return parsed_explanation
-
-    except Exception:
+    except Exception as e:
         # Gracefully handle network / parsing / timeout errors without breaking API response
+        print(f"[WashGuard] Gemini API exception: {type(e).__name__}: {e}")
         if os.getenv("ALLOW_MOCK_FALLBACK", "true").lower() == "true":
             return generate_fallback_ai_explanation(detection_data)
         return None
