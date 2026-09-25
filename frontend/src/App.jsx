@@ -30,6 +30,7 @@ export default function App() {
   const [loadingStepIdx, setLoadingStepIdx] = useState(0);
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
+  const [isResultsPage, setIsResultsPage] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -48,6 +49,14 @@ export default function App() {
     setContractAddress(address);
     setTokenId(id);
     setError(null);
+  };
+
+  const handleStartNewAnalysis = () => {
+    setContractAddress('');
+    setTokenId('');
+    setResults(null);
+    setError(null);
+    setIsResultsPage(false);
   };
 
   const handleAnalyze = async (e) => {
@@ -92,6 +101,7 @@ export default function App() {
 
       const data = await response.json();
       setResults(data);
+      setIsResultsPage(true);
     } catch (err) {
       if (err.name === 'TypeError' && err.message.includes('fetch')) {
         setError(
@@ -126,6 +136,8 @@ export default function App() {
         </div>
       </div>
 
+      {!isResultsPage && (
+        <>
       {/* Header */}
       <header className="header">
         <div className="header-badge header-badge-spacer" aria-hidden="true"></div>
@@ -267,9 +279,18 @@ export default function App() {
           </aside>
         </div>
       </div>
+        </>
+      )}
 
       {/* Results Area */}
-      {results && results.risk_score !== undefined && (
+      {isResultsPage && results && results.risk_score !== undefined && (
+        <>
+        <div className="results-page-header">
+          <button type="button" className="results-back-btn" onClick={handleStartNewAnalysis}>
+            ← Back to analyzer
+          </button>
+          <span>Inspection complete</span>
+        </div>
         <div className="card results-area">
           <div className="card-title">
             <span>Wash-Trading Analysis Results</span>
@@ -571,6 +592,12 @@ export default function App() {
             )}
           </div>
         </div>
+        <div className="results-bottom-action">
+          <button type="button" className="results-new-btn" onClick={handleStartNewAnalysis}>
+            Check another NFT
+          </button>
+        </div>
+        </>
       )}
 
       {/* Footer */}

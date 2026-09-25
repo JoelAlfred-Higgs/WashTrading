@@ -859,6 +859,62 @@ body {
 }
 
 /* Results Area */
+.results-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.results-back-btn {
+  border: 1px solid rgba(26, 138, 107, 0.35);
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--accent-cyan);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.results-back-btn:hover {
+  border-color: var(--accent-cyan);
+  background: #ffffff;
+}
+
+.results-new-btn {
+  border: 1px solid var(--accent-cyan);
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  background: var(--accent-cyan);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.results-new-btn:hover {
+  border-color: #146b54;
+  background: #146b54;
+}
+
+.results-bottom-action {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0 1rem;
+}
+
 .results-area {
   margin-top: 1rem;
 }
