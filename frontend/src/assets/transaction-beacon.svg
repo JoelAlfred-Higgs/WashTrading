@@ -1,0 +1,20 @@
+<svg width="260" height="150" viewBox="0 0 260 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="beacon" x1="82" y1="32" x2="178" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7B955"/>
+      <stop offset="1" stop-color="#E88335"/>
+    </linearGradient>
+  </defs>
+  <circle cx="130" cy="75" r="57" stroke="#1A8A6B" stroke-width="1.5" stroke-dasharray="4 8" stroke-opacity=".35"/>
+  <circle cx="130" cy="75" r="39" stroke="#E88335" stroke-width="1.5" stroke-opacity=".28"/>
+  <path d="M130 18V132M73 75H187" stroke="#5A6B7A" stroke-opacity=".18"/>
+  <path d="M130 75L77 42M130 75L183 43M130 75L182 108M130 75L78 108" stroke="#1A8A6B" stroke-width="2" stroke-opacity=".5"/>
+  <circle cx="130" cy="75" r="21" fill="url(#beacon)" fill-opacity=".94"/>
+  <path d="M135 57L124 76L133 78L126 94L141 73L132 71L135 57Z" fill="#FFF8E7"/>
+  <circle cx="77" cy="42" r="7" fill="#1A8A6B"/>
+  <circle cx="183" cy="43" r="7" fill="#E88335"/>
+  <circle cx="182" cy="108" r="7" fill="#1A8A6B"/>
+  <circle cx="78" cy="108" r="7" fill="#E88335"/>
+  <path d="M43 132H217" stroke="#1A8A6B" stroke-width="2" stroke-linecap="round" stroke-opacity=".35"/>
+  <path d="M57 132V123M75 132V118M93 132V126M167 132V121M185 132V125M203 132V115" stroke="#E88335" stroke-width="4" stroke-linecap="round" stroke-opacity=".55"/>
+</svg>

@@ -7,6 +7,11 @@ import signalPulse from './assets/signal-pulse.svg';
 import spikeGraph from './assets/spike-graph.svg';
 import bitcoinOrbit from './assets/bitcoin-orbit.svg';
 import marketRadar from './assets/market-radar.svg';
+import walletCycle from './assets/wallet-cycle.svg';
+import riskScanner from './assets/risk-scanner.svg';
+import tokenTrace from './assets/token-trace.svg';
+import transactionBeacon from './assets/transaction-beacon.svg';
+import riskConstellation from './assets/risk-constellation.svg';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
@@ -105,10 +110,14 @@ export default function App() {
         <img className="corner-visual corner-visual-radar" src={marketRadar} alt="" />
         <img className="corner-visual corner-visual-market" src={marketOrbit} alt="" />
         <img className="corner-visual corner-visual-network" src={networkGrid} alt="" />
+        <img className="corner-visual corner-visual-wallet" src={walletCycle} alt="" />
+        <img className="corner-visual corner-visual-risk" src={riskScanner} alt="" />
+        <img className="corner-visual corner-visual-trace" src={tokenTrace} alt="" />
+        <img className="corner-visual corner-visual-constellation" src={riskConstellation} alt="" />
         <div className="market-decor market-decor-chart">
-          <span className="decor-label">LIVE MARKET SIGNAL</span>
-          <img src={spikeGraph} alt="" />
-          <span className="decor-value">+24.8%</span>
+          <span className="decor-label">WALLET SIGNAL BEACON</span>
+          <img src={transactionBeacon} alt="" />
+          <span className="decor-value">4 LINKED NODES</span>
         </div>
         <div className="market-decor market-decor-coin">
           <img src={bitcoinOrbit} alt="" />
@@ -147,7 +156,7 @@ export default function App() {
 
       <div className="quote-lockup">
         <span className="quote-mark">“</span>
-        <p>Every sale leaves a signal. <em>Find the pattern before it finds you.</em>”</p>
+        <p>Every sale leaves a signal. <em>Find the pattern before it finds you.</em><span className="quote-mark quote-mark-inline">”</span></p>
       </div>
 
       {/* Input Card */}
